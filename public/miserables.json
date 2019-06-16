@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {"id": "01", "group": 1, "name": "老子"},
+    {"id": "02", "group": 1, "name": "鬼谷子"},
+    {"id": "03", "group": 1, "name": "孙膑"},
+    {"id": "04", "group": 1, "name": "庞涓"},
+    {"id": "05", "group": 1, "name": "张仪"},
+    {"id": "06", "group": 1, "name": "苏秦"}
+  ],
+  "links": [
+    {"source": "02", "target": "01", "value": 1, "relation": "徒弟"},
+    {"source": "03", "target": "02", "value": 1, "relation": "学生"},
+    {"source": "04", "target": "02", "value": 1, "relation": "学生"},
+    {"source": "05", "target": "02", "value": 1, "relation": "学生"},
+    {"source": "06", "target": "02", "value": 1, "relation": "学生"},
+    {"source": "03", "target": "04", "value": 1, "relation": "同门"}
+  ]
+}
