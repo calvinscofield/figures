@@ -28,6 +28,9 @@ export default {
     force() {
       //this.simulation.restart();
     },
+    drawArrow() {
+      console.log("drawArrow");
+    },
     dragsubject() {
       let i,
         x = this.transform.invertX(d3.event.x),
@@ -108,10 +111,28 @@ export default {
       // d3.event.subject.fy = d3.event.y;
     },
     drawLink(d) {
-      let theta = Math.PI / 6,
-        r = 10;
       this.context.moveTo(d.source.x, d.source.y);
       this.context.lineTo(d.target.x, d.target.y);
+      let x1 = d.source.x,
+        y1 = d.source.y,
+        x2 = d.target.x,
+        y2 = d.target.y,
+        a1 = {},
+        a2 = {},
+        angle = Math.atan((y2 - y1) / (x2 - x1)) + (x2 < x1 ? Math.PI : 0),
+        r1 = 5,
+        r2 = this.radius,
+        theta = Math.PI / 6,
+        angle1 = Math.PI + angle + theta,
+        angle2 = Math.PI + angle - theta;
+      this.context.moveTo(x2 - r2 * Math.cos(angle), y2 - r2 * Math.sin(angle));
+      a1.x = x2 + r1 * Math.cos(angle1) - r2 * Math.cos(angle);
+      a1.y = y2 + r1 * Math.sin(angle1) - r2 * Math.sin(angle);
+      a2.x = x2 + r1 * Math.cos(angle2) - r2 * Math.cos(angle);
+      a2.y = y2 + r1 * Math.sin(angle2) - r2 * Math.sin(angle);
+      this.context.lineTo(a1.x, a1.y);
+      this.context.moveTo(x2 - r2 * Math.cos(angle), y2 - r2 * Math.sin(angle));
+      this.context.lineTo(a2.x, a2.y);
     },
     drawNode(d) {
       this.context.moveTo(d.x + this.radius, d.y);
@@ -122,7 +143,11 @@ export default {
       this.context.fillText(d.name, d.x, d.y);
     },
     drawText2(d) {
-      this.context.fillText(d.relation, (d.source.x + d.target.x) / 2 , (d.source.y + d.target.y) / 2);
+      this.context.fillText(
+        d.relation,
+        (d.source.x + d.target.x) / 2,
+        (d.source.y + d.target.y) / 2
+      );
     },
     zoomed() {
       console.log("zoomed");
